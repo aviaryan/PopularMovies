@@ -1,5 +1,6 @@
 package in.aviaryan.popularmovies;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,8 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Toast.makeText(getContext(), "" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "Niggas dont lie" + "");
+                startActivity(intent);
             }
         });
 
