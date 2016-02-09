@@ -36,8 +36,9 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null){
             imageview = new ImageView(mContext);
             //imageview.setLayoutParams(new GridLayout.LayoutParams());
-            imageview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            //imageview.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageview.setPadding(1, 1, 1, 1);
+            imageview.setScaleType(ImageView.ScaleType.FIT_XY);
             // imageview.setMaxHeight(300);
         } else {
             imageview = (ImageView) convertView;
@@ -45,7 +46,7 @@ public class ImageAdapter extends BaseAdapter {
 
         //Log.v("XXX", "" + ((GridView) convertView).getWidth() );
         // TODO: resize image with screen to get clean view
-        Picasso.with(mContext).load(images[position]).resize(220,220).into(imageview);
+        Picasso.with(mContext).load(images[position]).into(imageview);
         return imageview;
     }
 

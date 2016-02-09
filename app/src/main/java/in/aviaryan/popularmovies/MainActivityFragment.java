@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -27,12 +29,15 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainFragmentView = inflater.inflate(R.layout.fragment_main, container, false);
-        // load image
-//        Picasso.with(getContext()).load("http://i.imgur.com/DvpvklR.png").into(
-//                (ImageView) mainFragmentView.findViewById(R.id.imageView1));
 
         GridView gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
         gridview.setAdapter(new ImageAdapter(getContext()));
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Toast.makeText(getContext(), "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Log.v(LOG_TAG, "Image loaded");
         return mainFragmentView;

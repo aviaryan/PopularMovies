@@ -26,10 +26,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:numColumns="2"
+        android:scaleY="1.0"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
+
+        android:gravity="fill_vertical"
 
         android:listSelector="@null"/>
 
