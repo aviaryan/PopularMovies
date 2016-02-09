@@ -36,13 +36,11 @@ public class MainActivityFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(getContext(), "" + position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "Niggas dont lie" + "");
                 startActivity(intent);
             }
         });
 
-        Log.v(LOG_TAG, "Image loaded");
         return mainFragmentView;
     }
 }
