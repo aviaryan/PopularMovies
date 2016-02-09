@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -15,8 +17,8 @@ import com.squareup.picasso.Picasso;
  */
 public class MainActivityFragment extends Fragment {
 
-    private View mainFragementView;
-    public String LOG_TAG = "ShowcaseFragement";
+    private View mainFragmentView;
+    public String LOG_TAG = "ShowcaseFragment";
 
     public MainActivityFragment() {
     }
@@ -24,14 +26,15 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mainFragementView = inflater.inflate(R.layout.fragment_main, container, false);
+        mainFragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         // load image
-        Picasso.with(getContext()).load("http://i.imgur.com/DvpvklR.png").into(
-                (ImageView) mainFragementView.findViewById(R.id.imageView1) );
-        Picasso.with(getContext()).load("http://i.imgur.com/DvpvklR.png").into(
-                (ImageView) mainFragementView.findViewById(R.id.imageView2) );
+//        Picasso.with(getContext()).load("http://i.imgur.com/DvpvklR.png").into(
+//                (ImageView) mainFragmentView.findViewById(R.id.imageView1));
+
+        GridView gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
+        gridview.setAdapter(new ImageAdapter(getContext()));
 
         Log.v(LOG_TAG, "Image loaded");
-        return mainFragementView;
+        return mainFragmentView;
     }
 }
