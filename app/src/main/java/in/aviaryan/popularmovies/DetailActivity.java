@@ -31,7 +31,8 @@ public class DetailActivity extends AppCompatActivity {
 
         // show the data
         Intent intent = getIntent();
-        String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String text = "" + intent.getStringExtra(Intent.EXTRA_TEXT);
+        text = MainActivityFragment.movies.get(Integer.parseInt(text)).display_name;
         ((TextView) findViewById(R.id.detailTextView)).setText(text);
     }
 

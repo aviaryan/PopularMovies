@@ -33,7 +33,7 @@ public class MainActivityFragment extends Fragment {
 
     private View mainFragmentView;
     public String LOG_TAG = "ShowcaseFragment";
-    public ArrayList<Movie> movies = new ArrayList<Movie>();
+    public static ArrayList<Movie> movies = new ArrayList<Movie>();
     private RequestQueue mRequestQueue;
     public ImageAdapter imageAdapter;
 
@@ -50,6 +50,7 @@ public class MainActivityFragment extends Fragment {
         imageAdapter = new ImageAdapter(getContext());
 
         // fetch movies
+        movies.clear();
         getMovies();
 
         GridView gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
@@ -57,7 +58,7 @@ public class MainActivityFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "Niggas dont lie" + "");
+                Intent intent = new Intent(getContext(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, position + "");
                 startActivity(intent);
             }
         });
@@ -85,7 +86,6 @@ public class MainActivityFragment extends Fragment {
                                 movie.rating = movieObj.getDouble("vote_average");
                                 movie.popularity = movieObj.getDouble("popularity");
                                 movies.add(movie);
-                                //Log.v(LOG_TAG, movie.display_name);
                                 // Add images to adapter
                                 imageAdapter.addItem(movie.poster_url);
                             }

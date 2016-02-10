@@ -11,7 +11,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailTextView"/>
+        android:layout_height="50dp"
+        android:id="@+id/detailTextView"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"/>
 
 </RelativeLayout>

@@ -47,8 +47,7 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         //Log.v("XXX", "" + ((GridView) convertView).getWidth() );
-        // TODO: resize image with screen to get clean view
-        Log.v("XXX", images.get(position));
+        //Log.v("XXX", images.get(position));
         Picasso.with(mContext).load(images.get(position)).into(imageview);
         return imageview;
     }
@@ -57,7 +56,6 @@ public class ImageAdapter extends BaseAdapter {
     Custom methods
      */
     public void addItem(String url){
-        Log.v("XXX", url);
         images.add(url);
     }
 
