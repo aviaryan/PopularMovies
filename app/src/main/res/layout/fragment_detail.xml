@@ -15,11 +15,12 @@
         android:id="@+id/detailTextView"
         android:background="@color/colorSecondary"
         android:textColor="@color/colorWhite"
-        android:textSize="40sp"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
+        android:textSize="@dimen/detail_heading_size"
+        android:paddingLeft="@dimen/detail_generic_spacing"
+        android:paddingStart="@dimen/detail_generic_spacing"
         android:paddingTop="40dp"
-        android:paddingBottom="30dp"/>
+        android:paddingBottom="30dp"
+        android:text="Header Movie"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,9 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/posterImageView"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginTop="@dimen/detail_generic_spacing"
+        android:layout_marginLeft="@dimen/detail_generic_spacing"
+        android:layout_marginStart="@dimen/detail_generic_spacing"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,8 +47,8 @@
         android:layout_alignTop="@+id/posterImageView"
         android:layout_toRightOf="@+id/posterImageView"
         android:layout_toEndOf="@+id/posterImageView"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginLeft="@dimen/detail_generic_spacing"
+        android:layout_marginStart="@dimen/detail_generic_spacing"
         android:textSize="20sp"/>
 
     <RatingBar
@@ -60,7 +61,7 @@
         style="?android:attr/ratingBarStyleSmall"
         android:isIndicator="true"
         android:stepSize="0.25"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/detail_generic_spacing"
         android:rating="5.0"/>
 
     <TextView
@@ -77,7 +78,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/overviewTextView"
         android:layout_below="@+id/posterImageView"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/detail_generic_spacing"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:text="Lorem iasda sdakds akdsakd sdkads"/>

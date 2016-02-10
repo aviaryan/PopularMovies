@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="detail_heading_size">40sp</dimen>
+    <dimen name="detail_generic_spacing">20dp</dimen>
 </resources>
