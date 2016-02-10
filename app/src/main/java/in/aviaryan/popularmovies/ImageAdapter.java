@@ -60,7 +60,5 @@ public class ImageAdapter extends BaseAdapter {
         images.clear();
     }
 
-    //private String theimage = "http://aviaryan.in/images/profile.png";
-    //private String[] images = {theimage, theimage, theimage, theimage, theimage};
     public ArrayList<String> images = new ArrayList<String>();
 }

@@ -36,16 +36,17 @@ public class DetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // show the data
+        // Get movie
         Intent intent = getIntent();
         String text = "" + intent.getStringExtra(Intent.EXTRA_TEXT);
         Movie movie = MainActivityFragment.movies.get(Integer.parseInt(text));
 
+        // Populate the display fields
         ((TextView) findViewById(R.id.detailTextView)).setText(movie.display_name);
         Picasso.with(getBaseContext()).load(movie.poster_url).into((ImageView) findViewById(R.id.posterImageView));
         ((TextView) findViewById(R.id.overviewTextView)).setText(movie.overview);
         ((RatingBar) findViewById(R.id.rating)).setRating(movie.rating / 2f);
-        ((TextView) findViewById(R.id.ratingTextView)).setText(movie.rating + "/10");
+        ((TextView) findViewById(R.id.ratingTextView)).setText((float) Math.round(movie.rating*10d)/10d + "/10");
 
         SimpleDateFormat df = new SimpleDateFormat("dd MMM, yyyy");
         SimpleDateFormat dfInput = new SimpleDateFormat("yyyy-MM-dd");

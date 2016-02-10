@@ -18,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,7 +92,7 @@ public class MainActivityFragment extends Fragment {
                                 movie.rating = (float) movieObj.getDouble("vote_average");
                                 movie.popularity = movieObj.getDouble("popularity");
                                 movies.add(movie);
-                                // Add images to adapter
+                                // Add image to adapter
                                 imageAdapter.addItem(movie.poster_url);
                             }
                         } catch (JSONException e){
@@ -103,7 +102,7 @@ public class MainActivityFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(LOG_TAG, "Error buddy");
+                Log.d(LOG_TAG, "Error in JSON Parsing");
             }
         });
 
