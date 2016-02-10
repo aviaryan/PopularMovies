@@ -15,7 +15,7 @@
         android:id="@+id/detailTextView"
         android:background="@color/colorSecondary"
         android:textColor="@color/colorWhite"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:paddingLeft="20dp"
         android:paddingTop="30dp"
         android:paddingBottom="30dp"/>
@@ -25,8 +25,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/posterImageView"
         android:layout_below="@+id/detailTextView"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -34,17 +35,26 @@
         android:id="@+id/rating"
         android:layout_below="@+id/detailTextView"
         android:layout_toRightOf="@+id/posterImageView"
+        style="?android:attr/ratingBarStyleIndicator"
         android:isIndicator="true"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:stepSize="0.5"/>
+        android:stepSize="0.25"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingTextView"
+        android:layout_below="@+id/rating"
+        android:layout_alignLeft="@+id/rating"
+        android:layout_alignStart="@+id/rating"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/overviewTextView"
         android:layout_below="@+id/posterImageView"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
 
 </RelativeLayout>

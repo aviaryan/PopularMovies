@@ -41,8 +41,8 @@ public class DetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.detailTextView)).setText(movie.display_name);
         Picasso.with(getBaseContext()).load(movie.poster_url).into((ImageView) findViewById(R.id.posterImageView));
         ((TextView) findViewById(R.id.overviewTextView)).setText(movie.overview);
-        ((RatingBar) findViewById(R.id.rating)).setRating(movie.rating/2);
-
+        ((RatingBar) findViewById(R.id.rating)).setRating(movie.rating / 2f);
+        ((TextView) findViewById(R.id.ratingTextView)).setText(movie.rating + "/10");
     }
 
 }
