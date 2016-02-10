@@ -29,4 +29,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.android.support:design:23.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    // volley
+    compile 'com.mcxiaoke.volley:library:1.0.19'
 }

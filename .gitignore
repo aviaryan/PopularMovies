@@ -36,3 +36,5 @@ captures/
 
 
 DataStore.java
+# Scripts to test API
+scripts/
