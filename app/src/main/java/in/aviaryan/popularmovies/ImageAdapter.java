@@ -37,17 +37,14 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageview;
         if (convertView == null){
             imageview = new ImageView(mContext);
-            //imageview.setLayoutParams(new GridLayout.LayoutParams());
-            //imageview.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageview.setPadding(0, 0, 0, 0);
-            imageview.setScaleType(ImageView.ScaleType.FIT_XY);
-            // imageview.setMaxHeight(300);
+            //imageview.setLayoutParams(new GridLayout.MarginLayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            imageview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageview.setAdjustViewBounds(true);
         } else {
             imageview = (ImageView) convertView;
         }
 
-        //Log.v("XXX", "" + ((GridView) convertView).getWidth() );
-        //Log.v("XXX", images.get(position));
         Picasso.with(mContext).load(images.get(position)).into(imageview);
         return imageview;
     }

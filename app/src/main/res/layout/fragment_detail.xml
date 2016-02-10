@@ -18,8 +18,8 @@
         android:textSize="@dimen/detail_heading_size"
         android:paddingLeft="@dimen/detail_generic_spacing"
         android:paddingStart="@dimen/detail_generic_spacing"
-        android:paddingTop="40dp"
-        android:paddingBottom="30dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="25dp"
         android:text="Header Movie"/>
 
     <ScrollView
@@ -81,6 +81,8 @@
         android:layout_marginTop="@dimen/detail_generic_spacing"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:text="Lorem iasda sdakds akdsakd sdkads"/>
 
         </RelativeLayout>
