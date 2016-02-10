@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -43,6 +46,17 @@ public class DetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.overviewTextView)).setText(movie.overview);
         ((RatingBar) findViewById(R.id.rating)).setRating(movie.rating / 2f);
         ((TextView) findViewById(R.id.ratingTextView)).setText(movie.rating + "/10");
+
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM, yyyy");
+        SimpleDateFormat dfInput = new SimpleDateFormat("yyyy-MM-dd");
+        String releasedDate;
+        try {
+            releasedDate = df.format(dfInput.parse(movie.released_date));
+        } catch (ParseException e){
+            e.printStackTrace();
+            releasedDate = movie.released_date;
+        }
+        ((TextView) findViewById(R.id.releaseDate)).setText(releasedDate);
     }
 
 }
