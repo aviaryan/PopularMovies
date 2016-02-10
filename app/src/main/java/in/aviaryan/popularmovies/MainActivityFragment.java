@@ -51,9 +51,7 @@ public class MainActivityFragment extends Fragment {
         // setup image adapter
         imageAdapter = new ImageAdapter(getContext());
 
-        // fetch movies
-        movies.clear();
-        getMovies();
+        updateUI();
 
         GridView gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
         gridview.setAdapter(imageAdapter);
@@ -66,6 +64,13 @@ public class MainActivityFragment extends Fragment {
         });
 
         return mainFragmentView;
+    }
+
+    public void updateUI(){
+        if (movies.size() == 0)
+            getMovies();
+        else
+            resetImageAdapter();
     }
 
     public void getMovies(){
@@ -109,5 +114,6 @@ public class MainActivityFragment extends Fragment {
         imageAdapter.clearItems();
         for (int i = 0; i < movies.size(); i++)
             imageAdapter.addItem(movies.get(i).poster_url);
+        imageAdapter.notifyDataSetChanged();
     }
 }
