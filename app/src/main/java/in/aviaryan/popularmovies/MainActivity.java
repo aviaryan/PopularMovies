@@ -1,5 +1,6 @@
 package in.aviaryan.popularmovies;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +49,33 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_sort_rating) {
+            Collections.sort(MainActivityFragment.movies, new Comparator<Movie>() {
+                @Override
+                public int compare(Movie movie, Movie t1) {
+                    if (movie.rating > t1.rating)
+                        return -1;
+                    else if (movie.rating < t1.rating)
+                        return 1;
+                    return 0;
+                }
+            });
+        } else if (id == R.id.action_sort_popularity) {
+            Collections.sort(MainActivityFragment.movies, new Comparator<Movie>() {
+                @Override
+                public int compare(Movie movie, Movie t1) {
+                    if (movie.popularity > t1.popularity)
+                        return -1;
+                    else if (movie.popularity < t1.popularity)
+                        return 1;
+                    return 0;
+                }
+            });
+        }
+
+        if (id == R.id.action_sort_popularity || id == R.id.action_sort_rating){
+            MainActivityFragment instance = MainActivityFragment.instance;
+            instance.resetImageAdapter();
         }
 
         return super.onOptionsItemSelected(item);

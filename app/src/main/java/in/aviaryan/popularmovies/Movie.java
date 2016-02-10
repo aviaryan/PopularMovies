@@ -11,6 +11,5 @@ public class Movie {
     // poster url format - http://image.tmdb.org/t/p/w185//k1QUCjNAkfRpWfm1dVJGUmVHzGv.jpg
 
     public Movie(){
-
     }
 }

@@ -36,8 +36,10 @@ public class MainActivityFragment extends Fragment {
     public static ArrayList<Movie> movies = new ArrayList<Movie>();
     private RequestQueue mRequestQueue;
     public ImageAdapter imageAdapter;
+    public static MainActivityFragment instance;
 
     public MainActivityFragment() {
+        instance = this;
     }
 
     @Override
@@ -101,5 +103,11 @@ public class MainActivityFragment extends Fragment {
         });
 
         mRequestQueue.add(req);
+    }
+
+    public void resetImageAdapter(){
+        imageAdapter.clearItems();
+        for (int i = 0; i < movies.size(); i++)
+            imageAdapter.addItem(movies.get(i).poster_url);
     }
 }
