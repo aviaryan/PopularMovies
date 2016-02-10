@@ -2,7 +2,7 @@ package in.aviaryan.popularmovies;
 
 public class Movie {
     public String display_name;
-    public Double rating;
+    public float rating;
     public Double popularity;
     public String released_date;
     public String overview;

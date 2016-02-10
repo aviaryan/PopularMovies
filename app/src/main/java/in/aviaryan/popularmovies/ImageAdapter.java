@@ -39,7 +39,7 @@ public class ImageAdapter extends BaseAdapter {
             imageview = new ImageView(mContext);
             //imageview.setLayoutParams(new GridLayout.LayoutParams());
             //imageview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageview.setPadding(1, 1, 1, 1);
+            imageview.setPadding(0, 0, 0, 0);
             imageview.setScaleType(ImageView.ScaleType.FIT_XY);
             // imageview.setMaxHeight(300);
         } else {

@@ -83,7 +83,7 @@ public class MainActivityFragment extends Fragment {
                                 movie.overview = movieObj.getString("overview");
                                 movie.poster_url = "http://image.tmdb.org/t/p/w185/" + movieObj.getString("poster_path");
                                 movie.released_date = movieObj.getString("release_date");
-                                movie.rating = movieObj.getDouble("vote_average");
+                                movie.rating = (float) movieObj.getDouble("vote_average");
                                 movie.popularity = movieObj.getDouble("popularity");
                                 movies.add(movie);
                                 // Add images to adapter

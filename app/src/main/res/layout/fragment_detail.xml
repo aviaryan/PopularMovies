@@ -11,10 +11,40 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/detailTextView"
         android:background="@color/colorSecondary"
         android:textColor="@color/colorWhite"
-        android:textSize="20dp"/>
+        android:textSize="40dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/posterImageView"
+        android:layout_below="@+id/detailTextView"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"/>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating"
+        android:layout_below="@+id/detailTextView"
+        android:layout_toRightOf="@+id/posterImageView"
+        android:isIndicator="true"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:stepSize="0.5"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/overviewTextView"
+        android:layout_below="@+id/posterImageView"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"/>
 
 </RelativeLayout>

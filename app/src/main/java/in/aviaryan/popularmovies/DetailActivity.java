@@ -7,7 +7,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -32,8 +36,13 @@ public class DetailActivity extends AppCompatActivity {
         // show the data
         Intent intent = getIntent();
         String text = "" + intent.getStringExtra(Intent.EXTRA_TEXT);
-        text = MainActivityFragment.movies.get(Integer.parseInt(text)).display_name;
-        ((TextView) findViewById(R.id.detailTextView)).setText(text);
+        Movie movie = MainActivityFragment.movies.get(Integer.parseInt(text));
+
+        ((TextView) findViewById(R.id.detailTextView)).setText(movie.display_name);
+        Picasso.with(getBaseContext()).load(movie.poster_url).into((ImageView) findViewById(R.id.posterImageView));
+        ((TextView) findViewById(R.id.overviewTextView)).setText(movie.overview);
+        ((RatingBar) findViewById(R.id.rating)).setRating(movie.rating/2);
+
     }
 
 }
