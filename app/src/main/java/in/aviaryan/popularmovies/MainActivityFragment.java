@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 public class MainActivityFragment extends Fragment {
 
-    private View mainFragmentView;
+    public View mainFragmentView;
     public String LOG_TAG = "ShowcaseFragment";
     public static ArrayList<Movie> movies = new ArrayList<Movie>();
     private RequestQueue mRequestQueue;
@@ -115,5 +115,9 @@ public class MainActivityFragment extends Fragment {
         for (int i = 0; i < movies.size(); i++)
             imageAdapter.addItem(movies.get(i).poster_url);
         imageAdapter.notifyDataSetChanged();
+    }
+
+    public void setGridColCount(int n){
+        ((GridView) mainFragmentView.findViewById(R.id.gridView)).setNumColumns(n);
     }
 }

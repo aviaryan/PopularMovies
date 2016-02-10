@@ -19,7 +19,6 @@
         android:numColumns="2"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
-
         android:listSelector="@null"/>
 
 </RelativeLayout>
