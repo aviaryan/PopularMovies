@@ -1,8 +1,8 @@
 # Popular Movies Android app
 
-![Main screen](http://i.imgur.com/mKdbUaV.png)
+![Main screen](http://i.imgur.com/BWSsj8v.png)
 
-![Details View](http://i.imgur.com/fjUpAjt.png)
+![Details View](http://i.imgur.com/lFDIqBL.png)
 
 
 
