@@ -1,3 +1,11 @@
+# Popular Movies Android app
+
+![Main screen](http://i.imgur.com/mKdbUaV.png)
+
+![Details View](http://i.imgur.com/fjUpAjt.png)
+
+
+
 ## API key
 
 Create a Java Class file called `DataStore.java`.
