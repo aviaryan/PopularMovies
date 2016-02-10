@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
@@ -20,7 +22,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount(){
-        return images.length;
+        return images.size();
     }
 
     public Object getItem(int position){
@@ -46,10 +48,20 @@ public class ImageAdapter extends BaseAdapter {
 
         //Log.v("XXX", "" + ((GridView) convertView).getWidth() );
         // TODO: resize image with screen to get clean view
-        Picasso.with(mContext).load(images[position]).into(imageview);
+        Log.v("XXX", images.get(position));
+        Picasso.with(mContext).load(images.get(position)).into(imageview);
         return imageview;
     }
 
-    private String theimage = "http://aviaryan.in/images/profile.png";
-    private String[] images = {theimage, theimage, theimage, theimage, theimage};
+    /*
+    Custom methods
+     */
+    public void addItem(String url){
+        Log.v("XXX", url);
+        images.add(url);
+    }
+
+    //private String theimage = "http://aviaryan.in/images/profile.png";
+    //private String[] images = {theimage, theimage, theimage, theimage, theimage};
+    public ArrayList<String> images = new ArrayList<String>();
 }
