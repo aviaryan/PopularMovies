@@ -17,14 +17,23 @@
         android:textColor="@color/colorWhite"
         android:textSize="40sp"
         android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:paddingTop="40dp"
         android:paddingBottom="30dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/detailTextView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/posterImageView"
-        android:layout_below="@+id/detailTextView"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"/>
@@ -36,7 +45,9 @@
         android:text="2nd October, 1869"
         android:layout_alignTop="@+id/posterImageView"
         android:layout_toRightOf="@+id/posterImageView"
+        android:layout_toEndOf="@+id/posterImageView"
         android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:textSize="20sp"/>
 
     <RatingBar
@@ -44,6 +55,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rating"
         android:layout_alignLeft="@+id/releaseDate"
+        android:layout_alignStart="@+id/releaseDate"
         android:layout_below="@+id/releaseDate"
         style="?android:attr/ratingBarStyleSmall"
         android:isIndicator="true"
@@ -67,6 +79,10 @@
         android:layout_below="@+id/posterImageView"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:text="Lorem iasda sdakds akdsakd sdkads"/>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
