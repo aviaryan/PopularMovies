@@ -48,8 +48,7 @@ public class MainActivityFragment extends Fragment {
         imageAdapter = new ImageAdapter(getContext());
 
         updateUI();
-
-         gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
+        gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,7 +69,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void getMovies(){
-        String url = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=306e7a994fee9ca7fbcab27cc78ccc8a";
+        String url = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + DataStore.API_KEY;
         JsonObjectRequest req = new JsonObjectRequest(url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -92,7 +91,7 @@ public class MainActivityFragment extends Fragment {
                                 // Add image to adapter
                                 imageAdapter.addItem(movie.poster_url);
                                 //imageAdapter.notifyDataSetChanged();
-                                Log.v(LOG_TAG, "Add image to adapter");
+                                //Log.v(LOG_TAG, "Add image to adapter");
                             }
                         } catch (JSONException e){
                             e.printStackTrace();
