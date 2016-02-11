@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -47,8 +45,8 @@ public class ImageAdapter extends BaseAdapter {
             imageview = (ImageView) convertView;
         }
 
-        //Log.v("ImageAdapter", "Image added to view from adapter " + images.size() + " " + position);
-        Picasso.with(mContext).load(images.get(position)).into(imageview);
+        Log.v("ImageAdapter", "Image added to view from adapter " + images.size() + " " + position);
+        Picasso.with(mContext).load(images.get(position)).placeholder(R.mipmap.ic_launcher).into(imageview);
         return imageview;
     }
 

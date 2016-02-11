@@ -1,17 +1,14 @@
 package in.aviaryan.popularmovies;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,7 +33,7 @@ public class MainActivityFragment extends Fragment {
     private RequestQueue mRequestQueue;
     public ImageAdapter imageAdapter;
     public static MainActivityFragment instance;
-
+    GridView gridview;
     public MainActivityFragment() {
         instance = this;
     }
@@ -52,8 +49,7 @@ public class MainActivityFragment extends Fragment {
 
         updateUI();
 
-        GridView gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
-        gridview.setAdapter(imageAdapter);
+         gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,7 +70,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void getMovies(){
-        String url = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + DataStore.API_KEY;
+        String url = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=306e7a994fee9ca7fbcab27cc78ccc8a";
         JsonObjectRequest req = new JsonObjectRequest(url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -96,11 +92,19 @@ public class MainActivityFragment extends Fragment {
                                 // Add image to adapter
                                 imageAdapter.addItem(movie.poster_url);
                                 //imageAdapter.notifyDataSetChanged();
-                                //Log.v(LOG_TAG, "Add image to adapter");
+                                Log.v(LOG_TAG, "Add image to adapter");
                             }
                         } catch (JSONException e){
                             e.printStackTrace();
                         }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                gridview.setAdapter(imageAdapter);
+
+                            }
+                        });
+//                        imageAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
             @Override
