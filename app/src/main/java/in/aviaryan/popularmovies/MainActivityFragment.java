@@ -63,10 +63,9 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void updateUI(){
-        if (movies.size() == 0)
-            getMovies();
-        else
-            resetImageAdapter();
+        movies.clear();
+        imageAdapter.clearItems();
+        getMovies();
     }
 
     public void getMovies(){
@@ -91,7 +90,6 @@ public class MainActivityFragment extends Fragment {
                                 movies.add(movie);
                                 // Add image to adapter
                                 imageAdapter.addItem(movie.poster_url);
-                                //imageAdapter.notifyDataSetChanged();
                                 //Log.v(LOG_TAG, "Add image to adapter");
                             }
                         } catch (JSONException e){
@@ -104,7 +102,6 @@ public class MainActivityFragment extends Fragment {
 
                             }
                         });
-//                        imageAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
             @Override
