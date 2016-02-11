@@ -49,6 +49,7 @@ public class MainActivityFragment extends Fragment {
 
         updateUI();
         gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
+        gridview.setAdapter(imageAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
