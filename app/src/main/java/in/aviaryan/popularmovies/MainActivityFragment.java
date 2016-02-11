@@ -54,6 +54,7 @@ public class MainActivityFragment extends Fragment {
 
         GridView gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
         gridview.setAdapter(imageAdapter);
+
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -94,6 +95,8 @@ public class MainActivityFragment extends Fragment {
                                 movies.add(movie);
                                 // Add image to adapter
                                 imageAdapter.addItem(movie.poster_url);
+                                //imageAdapter.notifyDataSetChanged();
+                                //Log.v(LOG_TAG, "Add image to adapter");
                             }
                         } catch (JSONException e){
                             e.printStackTrace();

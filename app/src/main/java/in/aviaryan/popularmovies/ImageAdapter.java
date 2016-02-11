@@ -21,12 +21,14 @@ public class ImageAdapter extends BaseAdapter {
         mContext = c;
     }
 
+    @Override
     public int getCount(){
         return images.size();
     }
 
+    @Override
     public Object getItem(int position){
-        return null;
+        return images.get(position);
     }
 
     public long getItemId(int position){
@@ -45,6 +47,7 @@ public class ImageAdapter extends BaseAdapter {
             imageview = (ImageView) convertView;
         }
 
+        //Log.v("ImageAdapter", "Image added to view from adapter " + images.size() + " " + position);
         Picasso.with(mContext).load(images.get(position)).into(imageview);
         return imageview;
     }
