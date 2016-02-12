@@ -1,8 +1,8 @@
 package in.aviaryan.popularmovies;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -36,7 +36,7 @@ public class MainActivityFragment extends Fragment {
     public ImageAdapter imageAdapter;
     public static MainActivityFragment instance;
     GridView gridview;
-    public String sortOrder = "popularity.desc", moreParams = "";
+    public static String sortOrder = "popularity.desc", moreParams = "";
 
     public MainActivityFragment() {
         instance = this;
@@ -63,6 +63,12 @@ public class MainActivityFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // manage grid col count wrt Orientation
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            setGridColCount(3);
+        else
+            setGridColCount(2);
 
         return mainFragmentView;
     }
