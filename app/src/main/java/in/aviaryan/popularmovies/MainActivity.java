@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        MainActivityFragment fragment = MainActivityFragment.instance;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_sort_rating) {
-            Collections.sort(MainActivityFragment.movies, new Comparator<Movie>() {
+            Collections.sort(fragment.movies, new Comparator<Movie>() {
                 @Override
                 public int compare(Movie movie, Movie t1) {
                     if (movie.rating > t1.rating)
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         } else if (id == R.id.action_sort_popularity) {
-            Collections.sort(MainActivityFragment.movies, new Comparator<Movie>() {
+            Collections.sort(fragment.movies, new Comparator<Movie>() {
                 @Override
                 public int compare(Movie movie, Movie t1) {
                     if (movie.popularity > t1.popularity)

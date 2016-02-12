@@ -39,7 +39,8 @@ public class DetailActivity extends AppCompatActivity {
         // Get movie
         Intent intent = getIntent();
         String text = "" + intent.getStringExtra(Intent.EXTRA_TEXT);
-        Movie movie = MainActivityFragment.movies.get(Integer.parseInt(text));
+        MainActivityFragment mainFragment = MainActivityFragment.instance;
+        Movie movie = mainFragment.movies.get(Integer.parseInt(text));
 
         // Populate the display fields
         ((TextView) findViewById(R.id.detailTextView)).setText(movie.display_name);

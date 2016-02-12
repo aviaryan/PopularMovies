@@ -29,7 +29,7 @@ public class MainActivityFragment extends Fragment {
 
     public View mainFragmentView;
     public String LOG_TAG = "ShowcaseFragment";
-    public static ArrayList<Movie> movies = new ArrayList<Movie>();
+    public ArrayList<Movie> movies = new ArrayList<Movie>();
     private RequestQueue mRequestQueue;
     public ImageAdapter imageAdapter;
     public static MainActivityFragment instance;
