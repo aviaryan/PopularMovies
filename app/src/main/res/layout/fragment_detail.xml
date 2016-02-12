@@ -30,7 +30,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -81,28 +82,29 @@
                 android:id="@+id/overviewTextView"
                 android:layout_below="@+id/posterImageView"
                 android:layout_marginTop="@dimen/detail_generic_spacing"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="Lorem iasda sdakds akdsakd sdkads"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_below="@+id/overviewTextView"
-                android:layout_height="2dp"
-                android:id="@+id/splitterTrailer"
-                android:background="#c0c0c0"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"/>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_below="@+id/overviewTextView"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:id="@+id/splitterTrailer"-->
+                <!--android:background="#ffffff"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:layout_marginEnd="20dp"/>-->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/splitterTrailer"
+                android:layout_below="@id/overviewTextView"
                 android:id="@+id/trailerHeader"
                 android:layout_marginTop="@dimen/detail_generic_spacing"
                 android:textSize="20dp"
-                android:text="@string/text_videos"/>
+                android:text="@string/text_videos"
+                android:textColor="@color/colorPrimaryDark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
