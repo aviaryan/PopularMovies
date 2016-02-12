@@ -126,13 +126,6 @@ public class MainActivityFragment extends Fragment {
         mRequestQueue.add(req);
     }
 
-    public void resetImageAdapter(){
-        imageAdapter.clearItems();
-        for (int i = 0; i < movies.size(); i++)
-            imageAdapter.addItem(movies.get(i).poster_url);
-        imageAdapter.notifyDataSetChanged();
-    }
-
     public void setGridColCount(int n){
         ((GridView) mainFragmentView.findViewById(R.id.gridView)).setNumColumns(n);
     }
