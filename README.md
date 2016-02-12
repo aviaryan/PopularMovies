@@ -3,9 +3,9 @@
 Developed as a part of Udacity Nanodegree course. The code is non-functional. You will have to set the [API key first](#api-key).
 
 
-![Main screen](http://i.imgur.com/EtEbUaI.jpg)
+![Main screen](http://i.imgur.com/GeJA02L.jpg)
 
-![Details View](http://i.imgur.com/lFDIqBL.png)
+![Details View](http://i.imgur.com/DRjNbQN.jpg)
 
 
 
