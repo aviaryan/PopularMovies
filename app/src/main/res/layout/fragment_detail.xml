@@ -29,61 +29,81 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/posterImageView"
-        android:layout_marginTop="@dimen/detail_generic_spacing"
-        android:layout_marginLeft="@dimen/detail_generic_spacing"
-        android:layout_marginStart="@dimen/detail_generic_spacing"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/posterImageView"
+                android:layout_marginTop="@dimen/detail_generic_spacing"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@mipmap/ic_launcher"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/releaseDate"
-        android:text="2nd October, 1869"
-        android:layout_alignTop="@+id/posterImageView"
-        android:layout_toRightOf="@+id/posterImageView"
-        android:layout_toEndOf="@+id/posterImageView"
-        android:layout_marginLeft="@dimen/detail_generic_spacing"
-        android:layout_marginStart="@dimen/detail_generic_spacing"
-        android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/releaseDate"
+                android:text="2nd October, 1869"
+                android:layout_alignTop="@+id/posterImageView"
+                android:layout_toRightOf="@+id/posterImageView"
+                android:layout_toEndOf="@+id/posterImageView"
+                android:layout_marginLeft="@dimen/detail_generic_spacing"
+                android:layout_marginStart="@dimen/detail_generic_spacing"
+                android:textSize="20sp"/>
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rating"
-        android:layout_alignLeft="@+id/releaseDate"
-        android:layout_alignStart="@+id/releaseDate"
-        android:layout_below="@+id/releaseDate"
-        style="?android:attr/ratingBarStyleSmall"
-        android:isIndicator="true"
-        android:stepSize="0.25"
-        android:layout_marginTop="@dimen/detail_generic_spacing"
-        android:rating="5.0"/>
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rating"
+                android:layout_alignLeft="@+id/releaseDate"
+                android:layout_alignStart="@+id/releaseDate"
+                android:layout_below="@+id/releaseDate"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"
+                android:stepSize="0.25"
+                android:layout_marginTop="@dimen/detail_generic_spacing"
+                android:rating="5.0"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingTextView"
-        android:layout_below="@+id/rating"
-        android:layout_alignLeft="@+id/rating"
-        android:layout_alignStart="@+id/rating"
-        android:text="7.6/10"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingTextView"
+                android:layout_below="@+id/rating"
+                android:layout_alignLeft="@+id/rating"
+                android:layout_alignStart="@+id/rating"
+                android:text="7.6/10"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/overviewTextView"
-        android:layout_below="@+id/posterImageView"
-        android:layout_marginTop="@dimen/detail_generic_spacing"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Lorem iasda sdakds akdsakd sdkads"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/overviewTextView"
+                android:layout_below="@+id/posterImageView"
+                android:layout_marginTop="@dimen/detail_generic_spacing"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Lorem iasda sdakds akdsakd sdkads"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_below="@+id/overviewTextView"
+                android:layout_height="2dp"
+                android:id="@+id/splitterTrailer"
+                android:background="#c0c0c0"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/splitterTrailer"
+                android:layout_marginTop="@dimen/detail_generic_spacing"
+                android:textSize="20dp"
+                android:text="Trailers:"/>
+
+
 
         </RelativeLayout>
     </ScrollView>
