@@ -2,12 +2,12 @@ package in.aviaryan.popularmovies;
 
 
 import android.content.Context;
-import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -50,11 +50,20 @@ public class TrailerAdapter extends BaseAdapter {
         Picasso.with(mContext).load("http://img.youtube.com/vi/" + trailers.get(i).url + "/default.jpg")
                 .placeholder(R.mipmap.ic_launcher)
                 .into((ImageView) trailerRow.findViewById((R.id.trailerImage)));
+
+        final String url = trailers.get(i).url;
+        trailerRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DetailActivity) mContext).watchYoutubeVideo(url);
+            }
+        });
         return trailerRow;
     }
 
     public void addItem(Trailer trailer){
         trailers.add(trailer);
     }
+
     public ArrayList<Trailer> trailers = new ArrayList<Trailer>();
 }

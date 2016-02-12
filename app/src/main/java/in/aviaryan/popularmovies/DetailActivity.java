@@ -1,8 +1,9 @@
 package in.aviaryan.popularmovies;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,6 @@ public class DetailActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     public TrailerAdapter trailerAdapter;
     private static String LOG_TAG = "DetailView";
-    public ListView trailerListView;
     public LinearLayout trailersList;
 
     @Override
@@ -83,9 +83,6 @@ public class DetailActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         trailersList = (LinearLayout) findViewById(R.id.trailersList);
         getTrailers(movie.id);
-
-//        trailerListView = (ListView) findViewById(R.id.tra);
-//        trailerListView.setAdapter(trailerAdapter);
     }
 
     public void getTrailers(int id){
@@ -104,19 +101,10 @@ public class DetailActivity extends AppCompatActivity {
                                 trailer.url = trailerObj.getString("key");
                                 trailer.label = trailerObj.getString("name");
                                 trailerAdapter.addItem(trailer);
-                                //Log.v(LOG_TAG, "Add image to adapter");
                             }
                         } catch (JSONException e){
                             e.printStackTrace();
                         }
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                gridview.setAdapter(imageAdapter);
-//
-//                            }
-//                        });
-                        //trailerListView.setAdapter(trailerAdapter);
                         for (int i = 0; i < trailerAdapter.getCount(); i++){
                             trailersList.addView(trailerAdapter.getView(i, null, null));
                         }
@@ -129,5 +117,17 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         mRequestQueue.add(req);
+    }
+
+    public void watchYoutubeVideo(String id){
+        // http://stackoverflow.com/a/12439378/2295672
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+            startActivity(intent);
+        }catch (ActivityNotFoundException ex){
+            Intent intent=new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v="+id));
+            startActivity(intent);
+        }
     }
 }
