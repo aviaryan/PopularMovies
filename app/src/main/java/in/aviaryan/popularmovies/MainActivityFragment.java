@@ -36,6 +36,7 @@ public class MainActivityFragment extends Fragment {
     public ImageAdapter imageAdapter;
     public static MainActivityFragment instance;
     GridView gridview;
+    // static to preserve sorting over orientation changes (activity restart)
     public static String sortOrder = "popularity.desc", moreParams = "";
 
     public MainActivityFragment() {
