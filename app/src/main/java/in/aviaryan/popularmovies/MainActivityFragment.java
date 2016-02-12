@@ -34,6 +34,8 @@ public class MainActivityFragment extends Fragment {
     public ImageAdapter imageAdapter;
     public static MainActivityFragment instance;
     GridView gridview;
+    public String sortOrder = "popularity.desc", moreParams = "";
+
     public MainActivityFragment() {
         instance = this;
     }
@@ -65,11 +67,12 @@ public class MainActivityFragment extends Fragment {
     public void updateUI(){
         movies.clear();
         imageAdapter.clearItems();
-        getMovies();
+        getMovies(sortOrder, moreParams);
     }
 
-    public void getMovies(){
-        String url = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + DataStore.API_KEY;
+    public void getMovies(String sortOrder, String moreParams){
+        String url = "http://api.themoviedb.org/3/discover/movie?sort_by=" + sortOrder + "&" + moreParams
+            + "&api_key=" + DataStore.API_KEY;
         JsonObjectRequest req = new JsonObjectRequest(url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

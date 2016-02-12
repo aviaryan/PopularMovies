@@ -43,32 +43,15 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_sort_rating) {
-            Collections.sort(fragment.movies, new Comparator<Movie>() {
-                @Override
-                public int compare(Movie movie, Movie t1) {
-                    if (movie.rating > t1.rating)
-                        return -1;
-                    else if (movie.rating < t1.rating)
-                        return 1;
-                    return 0;
-                }
-            });
+            fragment.sortOrder = "vote_average.desc";
+            fragment.moreParams = "vote_count.gte=20";
         } else if (id == R.id.action_sort_popularity) {
-            Collections.sort(fragment.movies, new Comparator<Movie>() {
-                @Override
-                public int compare(Movie movie, Movie t1) {
-                    if (movie.popularity > t1.popularity)
-                        return -1;
-                    else if (movie.popularity < t1.popularity)
-                        return 1;
-                    return 0;
-                }
-            });
+            fragment.sortOrder = "popularity.desc";
+            fragment.moreParams = "";
         }
 
         if (id == R.id.action_sort_popularity || id == R.id.action_sort_rating){
-            MainActivityFragment instance = MainActivityFragment.instance;
-            instance.resetImageAdapter();
+            fragment.updateUI();
         }
 
         return super.onOptionsItemSelected(item);
