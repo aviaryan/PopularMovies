@@ -2,6 +2,8 @@ package in.aviaryan.popularmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +58,8 @@ public class MainActivityFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, position + "");
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, (Parcelable) movies.get(position));
                 startActivity(intent);
             }
         });

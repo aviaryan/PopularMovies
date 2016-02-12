@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_sort_rating) {
             fragment.sortOrder = "vote_average.desc";
-            fragment.moreParams = "vote_count.gte=20";
+            fragment.moreParams = "vote_count.gte=20"; // you don't want shows with few votes
         } else if (id == R.id.action_sort_popularity) {
             fragment.sortOrder = "popularity.desc";
             fragment.moreParams = "";
