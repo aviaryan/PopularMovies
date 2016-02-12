@@ -2,21 +2,41 @@ package in.aviaryan.popularmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private RequestQueue mRequestQueue;
+    public TrailerAdapter trailerAdapter;
+    private static String LOG_TAG = "DetailView";
+    public ListView trailerListView;
+    public LinearLayout trailersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +77,57 @@ public class DetailActivity extends AppCompatActivity {
             releasedDate = movie.released_date;
         }
         ((TextView) findViewById(R.id.releaseDate)).setText(releasedDate);
+
+        // get Trailers
+        trailerAdapter = new TrailerAdapter(this);
+        mRequestQueue = Volley.newRequestQueue(this);
+        trailersList = (LinearLayout) findViewById(R.id.trailersList);
+        getTrailers(movie.id);
+
+//        trailerListView = (ListView) findViewById(R.id.tra);
+//        trailerListView.setAdapter(trailerAdapter);
     }
 
+    public void getTrailers(int id){
+        String url = "http://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + DataStore.API_KEY;
+        JsonObjectRequest req = new JsonObjectRequest(url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray items = response.getJSONArray("results");
+                            JSONObject trailerObj;
+                            for (int i=0; i<items.length(); i++){
+                                trailerObj = items.getJSONObject(i);
+                                Trailer trailer = new Trailer();
+                                trailer.id = trailerObj.getString("id");
+                                trailer.url = trailerObj.getString("key");
+                                trailer.label = trailerObj.getString("name");
+                                trailerAdapter.addItem(trailer);
+                                //Log.v(LOG_TAG, "Add image to adapter");
+                            }
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                gridview.setAdapter(imageAdapter);
+//
+//                            }
+//                        });
+                        //trailerListView.setAdapter(trailerAdapter);
+                        for (int i = 0; i < trailerAdapter.getCount(); i++){
+                            trailersList.addView(trailerAdapter.getView(i, null, null));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, "Error in JSON Parsing");
+            }
+        });
+
+        mRequestQueue.add(req);
+    }
 }
