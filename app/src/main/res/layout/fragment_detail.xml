@@ -102,14 +102,7 @@
                 android:id="@+id/trailerHeader"
                 android:layout_marginTop="@dimen/detail_generic_spacing"
                 android:textSize="20dp"
-                android:text="Trailers:"/>
-
-            <!--<ListView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_below="@+id/trailerHeader"-->
-                <!--android:id="@+id/trailersListView">-->
-            <!--</ListView>-->
+                android:text="@string/text_videos"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
