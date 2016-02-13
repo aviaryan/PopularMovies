@@ -49,11 +49,11 @@ public class TrailerAdapter extends BaseAdapter {
         ((TextView) trailerRow.findViewById(R.id.trailerLabel)).setText(trailers.get(i).label);
         Picasso.with(mContext).load("http://img.youtube.com/vi/" + trailers.get(i).url + "/default.jpg")
                 .placeholder(R.mipmap.ic_launcher)
-                .into((ImageView) trailerRow.findViewById((R.id.trailerImage)));
+                .into((ImageView) trailerRow.findViewById(R.id.trailerImage));
         // youtube thumbnail - http://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
 
         final String url = trailers.get(i).url;
-        trailerRow.setOnClickListener(new View.OnClickListener() {
+        trailerRow.findViewById(R.id.trailerImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //view.setBackgroundColor(Color.LTGRAY);
