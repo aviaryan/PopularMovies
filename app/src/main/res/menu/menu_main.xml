@@ -13,12 +13,19 @@
         android:title="Sort"
         app:showAsAction="ifRoom">
         <menu>
+            <group android:id="@+id/group_sortOrder"
+                android:checkableBehavior="single">
             <item
                 android:id="@+id/action_sort_rating"
                 android:title="By Rating"/>
             <item
                 android:title="By Popularity"
-                android:id="@+id/action_sort_popularity"/>
+                android:id="@+id/action_sort_popularity"
+                android:checked="true"/>
+           <item
+               android:id="@+id/action_favorites"
+               android:title="Favorites"/>
+            </group>
         </menu>
     </item>
 </menu>

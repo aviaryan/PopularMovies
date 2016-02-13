@@ -40,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_sort_popularity) {
             fragment.sortOrder = "popularity.desc";
             fragment.moreParams = "";
+        } else if (id == R.id.action_favorites) {
+            //item.setChecked(true);
         }
-
+        item.setChecked(true);
         if (id == R.id.action_sort_popularity || id == R.id.action_sort_rating){
             fragment.updateUI();
         }
