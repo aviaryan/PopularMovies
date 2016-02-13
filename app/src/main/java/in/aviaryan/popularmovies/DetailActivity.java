@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     public TrailerAdapter trailerAdapter;
     private static String LOG_TAG = "DetailView";
-    public LinearLayout trailersList;
+    public LinearLayout trailersList, reviewsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,10 @@ public class DetailActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         trailersList = (LinearLayout) findViewById(R.id.trailersList);
         getTrailers(movie.id);
+
+        // get reviews
+        reviewsList = (LinearLayout) findViewById(R.id.reviewsList);
+        getReviews(movie.id);
     }
 
     public void getTrailers(int id){
@@ -117,6 +122,78 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         mRequestQueue.add(req);
+    }
+
+    public void getReviews(int id){
+        String url = "http://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=" + DataStore.API_KEY;
+        JsonObjectRequest req = new JsonObjectRequest(url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray items = response.getJSONArray("results");
+                            JSONObject reviewObj;
+                            View view;
+                            for (int i=0; i<items.length(); i++){
+                                reviewObj = items.getJSONObject(i);
+                                Review review = new Review();
+                                review.author = reviewObj.getString("author");
+                                review.url = reviewObj.getString("url");
+                                review.content = reviewObj.getString("content");
+                                reviewsList.addView(view = createReviewView(review));
+                                collapseReviewView(view);
+                            }
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, "Error in JSON Parsing");
+            }
+        });
+
+        mRequestQueue.add(req);
+    }
+
+    public View createReviewView(Review review){
+        View view;
+        view  = View.inflate(this, R.layout.review, null);
+        ((TextView) view.findViewById(R.id.reviewAuthor)).setText(review.author);
+        TextView contentView = (TextView) view.findViewById(R.id.reviewContent);
+        //TextView statusView = (TextView) view.findViewById(R.id.statusCollapsed);
+        contentView.setText(review.content);
+        return view;
+    }
+
+    public void collapseReviewView(final View view){
+        final TextView contentView = (TextView) view.findViewById(R.id.reviewContent);
+        contentView.post(new Runnable() { // run on UI thread for getLineCount
+            @Override
+            public void run() {
+                Log.v(LOG_TAG, "LINES " + contentView.getLineCount());
+                if (contentView.getLineCount() <= 5) {
+                    ((TextView) view.findViewById(R.id.statusCollapsed)).setVisibility(View.GONE);
+                } else {
+                    contentView.setMaxLines(5);
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            TextView statusView = (TextView) view.findViewById(R.id.statusCollapsed);
+                            TextView contentView2 = (TextView) view.findViewById(R.id.reviewContent);
+                            if (statusView.getText().equals(getString(R.string.text_more))) {
+                                contentView2.setMaxLines(10000);
+                                statusView.setText(getString(R.string.text_less));
+                            } else {
+                                contentView2.setMaxLines(5);
+                                statusView.setText(getString(R.string.text_more));
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public void watchYoutubeVideo(String id){

@@ -103,16 +103,33 @@
                 android:id="@+id/trailerHeader"
                 android:layout_marginTop="@dimen/detail_generic_spacing"
                 android:textSize="20dp"
-                android:text="@string/text_videos"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:text="@string/text_videos"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/trailerHeader"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/trailersList"
                 android:orientation="vertical">
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reviews:"
+                android:layout_below="@+id/trailersList"
+                android:textSize="20dp"
+                android:id="@+id/reviewHeader"
+                android:layout_marginTop="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reviewHeader"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:id="@+id/reviewsList">
             </LinearLayout>
 
         </RelativeLayout>
