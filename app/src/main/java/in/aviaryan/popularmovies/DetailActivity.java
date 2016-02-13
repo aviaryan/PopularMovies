@@ -172,7 +172,6 @@ public class DetailActivity extends AppCompatActivity {
         contentView.post(new Runnable() { // run on UI thread for getLineCount
             @Override
             public void run() {
-                Log.v(LOG_TAG, "LINES " + contentView.getLineCount());
                 if (contentView.getLineCount() <= 5) {
                     ((TextView) view.findViewById(R.id.statusCollapsed)).setVisibility(View.GONE);
                 } else {
