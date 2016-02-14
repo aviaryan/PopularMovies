@@ -37,20 +37,14 @@ public class MovieProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         Uri returnUri;
-        switch (sUriMatcher.match(uri)){
-            case MOVIE_LIST: {
-                long _id = database.insert(MovieEntry.TABLE_NAME, null, values);
-                Log.v(LOG_TAG, "Inserted - id = " + _id);
-                if (_id > 0) {
-                    returnUri = ContentUris.withAppendedId(MovieContract.CONTENT_URI, _id);
-                    getContext().getContentResolver().notifyChange(returnUri, null);
-                    return returnUri;
-                }
-                return null;
-            }
-            default:
-                throw new UnsupportedOperationException("Not yet implemented");
+        long _id = database.insert(MovieEntry.TABLE_NAME, null, values);
+        Log.v(LOG_TAG, "Inserted - id = " + _id);
+        if (_id > 0) {
+            returnUri = ContentUris.withAppendedId(MovieContract.CONTENT_URI, _id);
+            getContext().getContentResolver().notifyChange(returnUri, null);
+            return returnUri;
         }
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
@@ -101,6 +95,7 @@ public class MovieProvider extends ContentProvider {
         final String AUTHORITY = MovieContract.AUTHORITY;
 
         matcher.addURI(AUTHORITY, "/#", MOVIE_DETAIL);
+        matcher.addURI(AUTHORITY, "", MOVIE_LIST);
         return matcher;
     }
 }
