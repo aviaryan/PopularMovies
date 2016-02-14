@@ -30,6 +30,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.aviaryan.popularmovies.MainActivity"/>
         </activity>
+
+        <provider
+            android:name=".data.MovieProvider"
+            android:authorities="in.aviaryan.popularmovies"
+            android:enabled="true"
+            android:exported="true">
+        </provider>
     </application>
 
 </manifest>
