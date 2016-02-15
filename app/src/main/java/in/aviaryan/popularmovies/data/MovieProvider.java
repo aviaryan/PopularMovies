@@ -14,19 +14,36 @@ import java.sql.SQLException;
 import in.aviaryan.popularmovies.data.MovieContract.MovieEntry;
 
 public class MovieProvider extends ContentProvider {
-    private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private static final int MOVIE_DETAIL = 2, MOVIE_LIST = 1;
+    private static final int MOVIE_DETAIL = 2;
+    private static final int MOVIE_LIST = 1;
+    static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    static {
+        sUriMatcher.addURI(MovieContract.AUTHORITY, "movies", MOVIE_LIST);
+        sUriMatcher.addURI(MovieContract.AUTHORITY, "/#", MOVIE_DETAIL);
+    }
+
     static String LOG_TAG = "Database";
     MovieDBHelper DBHelper;
     SQLiteDatabase database;
 
-    public MovieProvider() {
-    }
-
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        int count = 0;
+        //Log.v(LOG_TAG, "ASDDSA" + sUriMatcher.match(uri));
+        switch (sUriMatcher.match(uri)){
+            case MOVIE_LIST: {
+                count = database.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            }
+            case MOVIE_DETAIL: {
+                count = database.delete(MovieEntry.TABLE_NAME, "_id = ?", selectionArgs);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
     @Override
@@ -88,14 +105,5 @@ public class MovieProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
         throw new UnsupportedOperationException("Not needed");
-    }
-
-    private static UriMatcher buildUriMatcher() {
-        final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String AUTHORITY = MovieContract.AUTHORITY;
-
-        matcher.addURI(AUTHORITY, "/#", MOVIE_DETAIL);
-        matcher.addURI(AUTHORITY, "", MOVIE_LIST);
-        return matcher;
     }
 }
