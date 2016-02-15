@@ -29,14 +29,13 @@ public class MovieProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         int count = 0;
-        //Log.v(LOG_TAG, "ASDDSA" + sUriMatcher.match(uri));
         switch (sUriMatcher.match(uri)){
             case MOVIE_LIST: {
                 count = database.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             }
             case MOVIE_DETAIL: {
-                count = database.delete(MovieEntry.TABLE_NAME, "_id = ?", selectionArgs);
+                count = database.delete(MovieEntry.TABLE_NAME, MovieEntry.COLUMN_ID + " = ?", selectionArgs);
                 break;
             }
             default:
@@ -75,6 +74,7 @@ public class MovieProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         Cursor retCursor;
+        if (sortOrder == null) sortOrder = MovieEntry.COLUMN_ID;
         switch (sUriMatcher.match(uri)){
             case MOVIE_LIST: {
                 retCursor = database.query(
@@ -84,7 +84,7 @@ public class MovieProvider extends ContentProvider {
             }
             case MOVIE_DETAIL: {
                 retCursor = database.query(
-                        MovieEntry.TABLE_NAME, projection, "_id = ?",
+                        MovieEntry.TABLE_NAME, projection, MovieEntry.COLUMN_ID + " = ?",
                         new String[]{uri.getLastPathSegment()}, null, null, sortOrder
                 );
                 break;
