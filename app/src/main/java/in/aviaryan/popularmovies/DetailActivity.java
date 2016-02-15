@@ -71,15 +71,15 @@ public class DetailActivity extends AppCompatActivity {
                 MoviesDB mdb = new MoviesDB();
                 String message;
                 if (mdb.isMovieFavorited(contentResolver, movie.id)){
-                    message = "removed";
+                    message = "Removed from Favorites";
                     mdb.removeMovie(contentResolver, movie.id);
                     fab.setImageDrawable(getDrawable(android.R.drawable.btn_star_big_off));
                 } else {
                     mdb.addMovie(contentResolver, movie);
-                    message = "Added";
+                    message = "Added to favorites";
                     fab.setImageDrawable(getDrawable(android.R.drawable.btn_star_big_on));
                 }
-                Toast.makeText(getApplicationContext(), "Favorite status = " + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -78,13 +78,8 @@ public class MovieProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)){
             case MOVIE_LIST: {
                 retCursor = database.query(
-                        MovieEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder);
+                        MovieEntry.TABLE_NAME, projection, selection,
+                        selectionArgs, null, null, sortOrder);
                 break;
             }
             case MOVIE_DETAIL: {

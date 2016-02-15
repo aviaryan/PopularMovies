@@ -14,6 +14,7 @@ public class MoviesDB {
         Cursor cursor = contentResolver.query(Uri.parse("content://" + MovieContract.AUTHORITY + "/" + id), null, null, null, null, null);
         if (cursor != null && cursor.moveToNext()){
             ret = true;
+            cursor.close();
         }
         return ret;
     }
