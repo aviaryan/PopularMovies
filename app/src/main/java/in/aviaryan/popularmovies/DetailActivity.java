@@ -1,6 +1,8 @@
 package in.aviaryan.popularmovies;
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,6 +34,9 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import in.aviaryan.popularmovies.data.MovieContract;
+import in.aviaryan.popularmovies.data.MovieContract.MovieEntry;
+
 public class DetailActivity extends AppCompatActivity {
 
     private RequestQueue mRequestQueue;
@@ -45,20 +51,30 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get movie
         Intent intent = getIntent();
-        Movie movie = (Movie) intent.getParcelableExtra(Intent.EXTRA_TEXT);
+        final Movie movie = (Movie) intent.getParcelableExtra(Intent.EXTRA_TEXT);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                //contentResolver.delete(Uri.parse("content://" + MovieContract.AUTHORITY + "/movies"), null, null);
+                MoviesDB mdb = new MoviesDB();
+                String message;
+                if (mdb.isMovieFavorited(contentResolver, movie.id)){
+                    message = "already";
+                } else {
+                    mdb.addMovie(contentResolver, movie);
+                    message = "Added";
+                }
+                Toast.makeText(getApplicationContext(), "Favorite status = " + message, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Populate the display fields
         ((TextView) findViewById(R.id.detailTextView)).setText(movie.display_name);
