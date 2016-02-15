@@ -51,27 +51,33 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get movie
         Intent intent = getIntent();
         final Movie movie = (Movie) intent.getParcelableExtra(Intent.EXTRA_TEXT);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        // Set starred icon if favorite
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        MoviesDB moviesDB = new MoviesDB();
+        boolean favStatus = moviesDB.isMovieFavorited(getApplicationContext().getContentResolver(), movie.id);
+        if (favStatus)
+            fab.setImageDrawable(getDrawable(android.R.drawable.btn_star_big_on));
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ContentResolver contentResolver = getApplicationContext().getContentResolver();
-                //contentResolver.delete(Uri.parse("content://" + MovieContract.AUTHORITY + "/movies"), null, null);
                 MoviesDB mdb = new MoviesDB();
                 String message;
                 if (mdb.isMovieFavorited(contentResolver, movie.id)){
                     message = "removed";
                     mdb.removeMovie(contentResolver, movie.id);
+                    fab.setImageDrawable(getDrawable(android.R.drawable.btn_star_big_off));
                 } else {
                     mdb.addMovie(contentResolver, movie);
                     message = "Added";
+                    fab.setImageDrawable(getDrawable(android.R.drawable.btn_star_big_on));
                 }
                 Toast.makeText(getApplicationContext(), "Favorite status = " + message, Toast.LENGTH_SHORT).show();
             }
