@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    static int activeId = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (activeId == 0){
+            activeId = R.id.action_sort_popularity;
+        } else {
+            menu.findItem(activeId).setChecked(true);
+        }
         return true;
     }
 
@@ -40,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_sort_popularity) {
             fragment.sortOrder = "popularity.desc";
             fragment.moreParams = "";
-        } else if (id == R.id.action_favorites) {
         }
         item.setChecked(true);
         if (id == R.id.action_sort_popularity || id == R.id.action_sort_rating){
             fragment.updateUI(false);
+            activeId = id;
         } else if (id == R.id.action_favorites){
             fragment.updateUI(true);
+            activeId = id;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
