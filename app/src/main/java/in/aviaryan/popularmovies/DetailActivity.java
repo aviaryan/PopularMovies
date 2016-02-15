@@ -67,7 +67,8 @@ public class DetailActivity extends AppCompatActivity {
                 MoviesDB mdb = new MoviesDB();
                 String message;
                 if (mdb.isMovieFavorited(contentResolver, movie.id)){
-                    message = "already";
+                    message = "removed";
+                    mdb.removeMovie(contentResolver, movie.id);
                 } else {
                     mdb.addMovie(contentResolver, movie);
                     message = "Added";

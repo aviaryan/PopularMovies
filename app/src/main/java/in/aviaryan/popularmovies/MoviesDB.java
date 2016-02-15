@@ -28,4 +28,9 @@ public class MoviesDB {
         contentValues.put(MovieEntry.COLUMN_RELEASE, movie.released_date);
         contentResolver.insert(Uri.parse("content://" + MovieContract.AUTHORITY + "/movies"), contentValues);
     }
+
+    public void removeMovie(ContentResolver contentResolver, int id){
+        Uri uri = Uri.parse("content://" + MovieContract.AUTHORITY + "/" + id);
+        contentResolver.delete(uri, null, new String[]{id+""});
+    }
 }
