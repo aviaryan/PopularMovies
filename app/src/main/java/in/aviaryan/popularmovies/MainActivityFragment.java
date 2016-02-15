@@ -140,6 +140,14 @@ public class MainActivityFragment extends Fragment {
         gridview.setAdapter(imageAdapter);
     }
 
+    public void updateFavoritesGrid(){
+        if (setting_cached) {
+            int p = gridview.getLastVisiblePosition();
+            updateUI(true);
+            gridview.smoothScrollToPosition(p);
+        }
+    }
+
     public void setGridColCount(int n){
         ((GridView) mainFragmentView.findViewById(R.id.gridView)).setNumColumns(n);
     }

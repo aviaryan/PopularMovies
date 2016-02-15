@@ -79,6 +79,7 @@ public class DetailActivity extends AppCompatActivity {
                     message = "Added to favorites";
                     fab.setImageDrawable(getDrawable(android.R.drawable.btn_star_big_on));
                 }
+                (MainActivityFragment.instance).updateFavoritesGrid(); // till I start using a Loader, this one should suffice
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
