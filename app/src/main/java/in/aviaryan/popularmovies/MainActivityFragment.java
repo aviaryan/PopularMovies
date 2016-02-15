@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ public class MainActivityFragment extends Fragment {
     GridView gridview;
     // static to preserve sorting over orientation changes (activity restart)
     public static String sortOrder = "popularity.desc", moreParams = "";
+    public static boolean setting_cached = false;
 
     public MainActivityFragment() {
         instance = this;
@@ -53,9 +55,9 @@ public class MainActivityFragment extends Fragment {
         // setup image adapter
         imageAdapter = new ImageAdapter(getContext());
 
-        updateUI();
         gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
         gridview.setAdapter(imageAdapter);
+        updateUI(setting_cached);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,10 +77,14 @@ public class MainActivityFragment extends Fragment {
         return mainFragmentView;
     }
 
-    public void updateUI(){
+    public void updateUI(boolean cached){
         movies.clear();
         imageAdapter.clearItems();
-        getMovies(sortOrder, moreParams);
+        setting_cached = cached;
+        if (!cached)
+            getMovies(sortOrder, moreParams);
+        else
+            getFavorites();
     }
 
     public void getMovies(String sortOrder, String moreParams){
@@ -113,7 +119,6 @@ public class MainActivityFragment extends Fragment {
                             @Override
                             public void run() {
                                 gridview.setAdapter(imageAdapter);
-
                             }
                         });
                     }
@@ -125,6 +130,14 @@ public class MainActivityFragment extends Fragment {
         });
 
         mRequestQueue.add(req);
+    }
+
+    public void getFavorites(){
+        movies.addAll((new MoviesDB()).getFavoriteMovies(getContext().getContentResolver()));
+        for (Movie movie : movies){
+            imageAdapter.addItem(movie.poster_url);
+        }
+        gridview.setAdapter(imageAdapter);
     }
 
     public void setGridColCount(int n){

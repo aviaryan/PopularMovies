@@ -45,7 +45,6 @@ public class ImageAdapter extends BaseAdapter {
             imageview = (ImageView) convertView;
         }
 
-        Log.v("ImageAdapter", "Image added to view from adapter " + images.size() + " " + position);
         Picasso.with(mContext).load(images.get(position)).placeholder(R.mipmap.ic_launcher).into(imageview);
         return imageview;
     }

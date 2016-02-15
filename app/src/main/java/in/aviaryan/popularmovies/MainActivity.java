@@ -41,11 +41,12 @@ public class MainActivity extends AppCompatActivity {
             fragment.sortOrder = "popularity.desc";
             fragment.moreParams = "";
         } else if (id == R.id.action_favorites) {
-            //item.setChecked(true);
         }
         item.setChecked(true);
         if (id == R.id.action_sort_popularity || id == R.id.action_sort_rating){
-            fragment.updateUI();
+            fragment.updateUI(false);
+        } else if (id == R.id.action_favorites){
+            fragment.updateUI(true);
         }
 
         return super.onOptionsItemSelected(item);
