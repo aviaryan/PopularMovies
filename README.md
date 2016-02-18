@@ -9,6 +9,8 @@ Developed as a part of Udacity Nanodegree course. The code is non-functional. Yo
 
 ![Reviews](http://i.imgur.com/z4KzwVM.jpg)
 
+![Tablet View](http://i.imgur.com/MJWoOdC.jpg)
+
 
 ## API key
 
