@@ -8,9 +8,13 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -47,6 +51,8 @@ public class DetailActivityFragment extends Fragment {
     private static String LOG_TAG = "DetailView";
     public LinearLayout trailersList, reviewsList;
     static DetailActivityFragment instance;
+    static final String YOUTUBE_URL_BASE = "http://www.youtube.com/watch?v=";
+    private android.support.v7.widget.ShareActionProvider mShareActionProvider;
 
     public DetailActivityFragment() {
         instance = this;
@@ -56,6 +62,7 @@ public class DetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         curView = inflater.inflate(R.layout.fragment_detail, container, false);
+        setHasOptionsMenu(true);
         //  get UI components
         trailersList = (LinearLayout) curView.findViewById(R.id.trailersList);
         reviewsList = (LinearLayout) curView.findViewById(R.id.reviewsList);
@@ -153,6 +160,21 @@ public class DetailActivityFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_detail, menu);
+
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+
+        if (mShareActionProvider != null){
+            mShareActionProvider.setShareIntent(createVideoShareIntent("<No Videos Found>"));
+        } else {
+            Log.d(LOG_TAG, "Share Action Provider not working");
+        }
+    }
+
     public void getTrailers(int id){
         String url = "http://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + DataStore.API_KEY;
         JsonObjectRequest req = new JsonObjectRequest(url, null,
@@ -176,6 +198,9 @@ public class DetailActivityFragment extends Fragment {
                         for (int i = 0; i < trailerAdapter.getCount(); i++){
                             trailersList.addView(trailerAdapter.getView(i, null, null));
                         }
+                        // update share intent
+                        mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
+                                trailerAdapter.trailers.get(0).url));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -263,8 +288,16 @@ public class DetailActivityFragment extends Fragment {
             startActivity(intent);
         }catch (ActivityNotFoundException ex){
             Intent intent=new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://www.youtube.com/watch?v="+id));
+                    Uri.parse(YOUTUBE_URL_BASE+id));
             startActivity(intent);
         }
+    }
+
+    private Intent createVideoShareIntent(String url){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, url);
+        return shareIntent;
     }
 }

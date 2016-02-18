@@ -36,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         MainActivityFragment fragment = MainActivityFragment.instance;
 
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_sort_rating) {
+        if (id == R.id.action_sort_rating) {
             fragment.sortOrder = "vote_average.desc";
             fragment.moreParams = "vote_count.gte=50&include_video=false"; // you don't want shows with few votes
         } else if (id == R.id.action_sort_popularity) {
