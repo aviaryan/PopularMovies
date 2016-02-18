@@ -41,6 +41,7 @@ public class MainActivityFragment extends Fragment {
     public static MainActivityFragment instance;
     GridView gridview;
     public boolean isDualPane = false;
+
     // static to preserve sorting over orientation changes (activity restart)
     public static String sortOrder = "popularity.desc", moreParams = "";
     public static boolean setting_cached = false;
@@ -55,15 +56,13 @@ public class MainActivityFragment extends Fragment {
         mainFragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         mRequestQueue = Volley.newRequestQueue(getContext());
 
-        // setup image adapter
+        // setup adapters
         imageAdapter = new ImageAdapter(getContext());
-
         gridview = (GridView) mainFragmentView.findViewById(R.id.gridView);
         gridview.setAdapter(imageAdapter);
+
         updateUI(setting_cached);
-
         gridview.setOnItemClickListener(new GridClickListener());
-
         // manage grid col count wrt Orientation
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             setGridColCount(3);
@@ -128,7 +127,6 @@ public class MainActivityFragment extends Fragment {
                                 movies.add(movie);
                                 // Add image to adapter
                                 imageAdapter.addItem(movie.poster_url);
-                                //Log.v(LOG_TAG, "Add image to adapter");
                             }
                         } catch (JSONException e){
                             e.printStackTrace();

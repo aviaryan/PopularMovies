@@ -66,7 +66,7 @@ public class DetailActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab); // bcoz fab is out of fragment
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab); // because fab is out of fragment
         fab.setOnClickListener(new FabOnClick());
         trailerAdapter = new TrailerAdapter(getActivity());
         mRequestQueue = Volley.newRequestQueue(getActivity());
@@ -224,9 +224,7 @@ public class DetailActivityFragment extends Fragment {
         View view;
         view  = View.inflate(getContext(), R.layout.review, null);
         ((TextView) view.findViewById(R.id.reviewAuthor)).setText(review.author);
-        TextView contentView = (TextView) view.findViewById(R.id.reviewContent);
-        //TextView statusView = (TextView) view.findViewById(R.id.statusCollapsed);
-        contentView.setText(review.content);
+        ((TextView) view.findViewById(R.id.reviewContent)).setText(review.content);
         return view;
     }
 
