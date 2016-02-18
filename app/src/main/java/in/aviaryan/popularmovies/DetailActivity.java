@@ -22,8 +22,6 @@ public class DetailActivity extends AppCompatActivity {
 
         Movie movie = getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
         DetailActivityFragment detailFragment = (DetailActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailFragment);
-
-        Log.v(LOG_TAG, "fragment found " + (detailFragment == null));
         detailFragment.movie = movie;
 
         Log.v(LOG_TAG, "Activity on create finished");

@@ -1,5 +1,6 @@
 package in.aviaryan.popularmovies;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 
 import com.android.volley.RequestQueue;
@@ -38,6 +40,7 @@ public class MainActivityFragment extends Fragment {
     public ImageAdapter imageAdapter;
     public static MainActivityFragment instance;
     GridView gridview;
+    public boolean isDualPane = false;
     // static to preserve sorting over orientation changes (activity restart)
     public static String sortOrder = "popularity.desc", moreParams = "";
     public static boolean setting_cached = false;
@@ -59,14 +62,7 @@ public class MainActivityFragment extends Fragment {
         gridview.setAdapter(imageAdapter);
         updateUI(setting_cached);
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, (Parcelable) movies.get(position));
-                startActivity(intent);
-            }
-        });
+        gridview.setOnItemClickListener(new GridClickListener());
 
         // manage grid col count wrt Orientation
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
@@ -75,6 +71,28 @@ public class MainActivityFragment extends Fragment {
             setGridColCount(2);
 
         return mainFragmentView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isDualPane = getPaneLayout();
+    }
+
+    class GridClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+            if (isDualPane){
+                android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                DetailActivityFragment detailActivityFragment = DetailActivityFragment.newInstance(movies.get(position));
+                ft.replace(R.id.detailContainer, detailActivityFragment);
+                ft.commit();
+            } else {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, (Parcelable) movies.get(position));
+                startActivity(intent);
+            }
+        }
     }
 
     public void updateUI(boolean cached){
@@ -150,5 +168,9 @@ public class MainActivityFragment extends Fragment {
 
     public void setGridColCount(int n){
         ((GridView) mainFragmentView.findViewById(R.id.gridView)).setNumColumns(n);
+    }
+
+    public boolean getPaneLayout(){
+        return (getActivity().findViewById(R.id.detailContainer) != null);
     }
 }

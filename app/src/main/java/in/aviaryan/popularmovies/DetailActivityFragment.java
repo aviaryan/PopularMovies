@@ -19,6 +19,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -78,7 +79,28 @@ public class DetailActivityFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mRequestQueue.stop();
+        Log.v(LOG_TAG, "Destroy view");
+        mRequestQueue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+            movie = getArguments().getParcelable("movie");
+    }
+
+    public static DetailActivityFragment newInstance(Movie newMovie) {
+        Bundle args = new Bundle();
+        DetailActivityFragment fragment = new DetailActivityFragment();
+        args.putParcelable("movie", newMovie);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public void updateUI(){
@@ -86,6 +108,8 @@ public class DetailActivityFragment extends Fragment {
         boolean favStatus = moviesDB.isMovieFavorited(getContext().getContentResolver(), movie.id);
         if (favStatus)
             fab.setImageDrawable(getActivity().getDrawable(android.R.drawable.btn_star_big_on));
+        else
+            fab.setImageDrawable(getActivity().getDrawable(android.R.drawable.btn_star_big_off));
         // fill fields
         ((TextView) curView.findViewById(R.id.detailTextView)).setText(movie.display_name);
         Picasso.with(getContext()).load(movie.poster_url).into((ImageView) curView.findViewById(R.id.posterImageView));
