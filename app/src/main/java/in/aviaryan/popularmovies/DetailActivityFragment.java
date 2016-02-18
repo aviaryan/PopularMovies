@@ -75,6 +75,12 @@ public class DetailActivityFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRequestQueue.stop();
+    }
+
     public void updateUI(){
         MoviesDB moviesDB = new MoviesDB();
         boolean favStatus = moviesDB.isMovieFavorited(getContext().getContentResolver(), movie.id);
