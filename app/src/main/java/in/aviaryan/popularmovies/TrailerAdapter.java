@@ -57,7 +57,7 @@ public class TrailerAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 //view.setBackgroundColor(Color.LTGRAY);
-                ((DetailActivity) mContext).watchYoutubeVideo(url);
+                DetailActivityFragment.instance.watchYoutubeVideo(url);
             }
         });
         return trailerRow;
