@@ -199,8 +199,10 @@ public class DetailActivityFragment extends Fragment {
                             trailersList.addView(trailerAdapter.getView(i, null, null));
                         }
                         // update share intent
-                        mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
-                                trailerAdapter.trailers.get(0).url));
+                        if (trailerAdapter.trailers.size() > 0) {
+                            mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
+                                    trailerAdapter.trailers.get(0).url));
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -287,8 +289,7 @@ public class DetailActivityFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
             startActivity(intent);
         }catch (ActivityNotFoundException ex){
-            Intent intent=new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(YOUTUBE_URL_BASE+id));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(YOUTUBE_URL_BASE+id));
             startActivity(intent);
         }
     }
