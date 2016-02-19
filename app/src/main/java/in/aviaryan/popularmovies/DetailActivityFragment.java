@@ -168,7 +168,8 @@ public class DetailActivityFragment extends Fragment {
             fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.btn_star_big_off));
         // fill fields
         ((TextView) curView.findViewById(R.id.detailTextView)).setText(movie.display_name);
-        Picasso.with(getContext()).load(movie.poster_url).into((ImageView) curView.findViewById(R.id.posterImageView));
+        Picasso.with(getContext()).load(movie.poster_url).
+            placeholder(R.mipmap.ic_launcher).into((ImageView) curView.findViewById(R.id.posterImageView));
         ((TextView) curView.findViewById(R.id.overviewTextView)).setText(movie.overview);
         ((RatingBar) curView.findViewById(R.id.rating)).setRating(movie.rating / 2f);
         ((TextView) curView.findViewById(R.id.ratingTextView)).setText((float) Math.round(movie.rating*10d)/10d + "/10");
