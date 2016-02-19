@@ -5,7 +5,7 @@ Developed as a part of Udacity Nanodegree course. The code is non-functional. Yo
 
 ![Main screen](http://i.imgur.com/GeJA02L.jpg)
 
-![Details View](http://i.imgur.com/DRjNbQN.jpg)
+![Details View](http://i.imgur.com/fICp6CR.png)
 
 ![Reviews](http://i.imgur.com/z4KzwVM.jpg)
 
