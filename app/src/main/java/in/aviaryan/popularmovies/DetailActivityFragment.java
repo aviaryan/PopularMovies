@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,9 +54,12 @@ public class DetailActivityFragment extends Fragment {
     public TrailerAdapter trailerAdapter;
     private static String LOG_TAG = "DetailView";
     public LinearLayout trailersList, reviewsList;
+    ScrollView scrollView;
     static DetailActivityFragment instance;
     static final String YOUTUBE_URL_BASE = "http://www.youtube.com/watch?v=";
     private android.support.v7.widget.ShareActionProvider mShareActionProvider;
+    // to save instance
+    int scrollId = 0, scrollOverheadId = 0;
 
     public DetailActivityFragment() {
         instance = this;
@@ -67,6 +72,7 @@ public class DetailActivityFragment extends Fragment {
         //  get UI components
         trailersList = (LinearLayout) curView.findViewById(R.id.trailersList);
         reviewsList = (LinearLayout) curView.findViewById(R.id.reviewsList);
+        scrollView = (ScrollView) curView.findViewById(R.id.detailScrollView);
         Log.v(LOG_TAG, "fragment on create view finished");
         return curView;
     }
@@ -80,6 +86,45 @@ public class DetailActivityFragment extends Fragment {
         mRequestQueue = Volley.newRequestQueue(getActivity());
         Log.v(LOG_TAG, "fragment on activity created finished");
         updateUI();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.v(LOG_TAG, "HI " + trailersList.getChildCount());
+
+        // save scroll instance
+        Rect scrollBounds = new Rect();
+        scrollView.getHitRect(scrollBounds);
+        scrollId = 0;
+        scrollOverheadId = 0;
+
+        RelativeLayout container = (RelativeLayout) curView.findViewById(R.id.detailScrollViewContainer);
+        LinearLayout listContainer;
+        int j;
+        for (int i = 0; i < container.getChildCount(); i++) {
+            if (container.getChildAt(i).getLocalVisibleRect(scrollBounds)) {
+                scrollId = (container.getChildAt(i)).getId();
+                Log.v(LOG_TAG, "found at " + container.getChildAt(i).toString());
+                if (container.getChildAt(i).getId() == R.id.trailersList || container.getChildAt(i).getId() == R.id.reviewsList){
+                    listContainer = (LinearLayout) container.getChildAt(i);
+                    for (j = 0; j < listContainer.getChildCount(); j++){
+                        if (listContainer.getChildAt(j).getLocalVisibleRect(scrollBounds)){
+                            scrollId = listContainer.getChildAt(j).getId();
+                            scrollOverheadId = listContainer.getId();
+                            break;
+                        }
+                    }
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        if (scrollId == R.id.posterImageView) scrollId = 0;
+        Log.v(LOG_TAG, "id " + scrollId + " overhead id " + scrollOverheadId);
+        outState.putInt("SCROLLID", scrollId);
+        outState.putInt("SCROLLOVERHEADID", scrollOverheadId);
     }
 
     @Override
@@ -98,9 +143,12 @@ public class DetailActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        setMenuVisibility(true);
         if (getArguments() != null)
             movie = getArguments().getParcelable("movie");
+        if (savedInstanceState != null) {
+            scrollId = savedInstanceState.getInt("SCROLLID");
+            scrollOverheadId = savedInstanceState.getInt("SCROLLOVERHEADID");
+        }
     }
 
     public static DetailActivityFragment newInstance(Movie newMovie) {
@@ -180,11 +228,6 @@ public class DetailActivityFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
-    }
-
     public void getTrailers(int id){
         String url = "http://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + DataStore.API_KEY;
         JsonObjectRequest req = new JsonObjectRequest(url, null,
@@ -244,8 +287,20 @@ public class DetailActivityFragment extends Fragment {
                                 review.author = reviewObj.getString("author");
                                 review.url = reviewObj.getString("url");
                                 review.content = reviewObj.getString("content");
-                                reviewsList.addView(view = createReviewView(review));
+                                reviewsList.addView(view = createReviewView(review, i));
                                 collapseReviewView(view);
+                            }
+                            // scroll saved
+                            Log.v(LOG_TAG, "scroll " + scrollId);
+                            if (scrollId != 0) {
+                                scrollView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scrollView.scrollTo(0,
+                                                ((scrollOverheadId>0) ? curView.findViewById(scrollOverheadId).getTop() : 0) +
+                                                curView.findViewById(scrollId).getTop());
+                                    }
+                                });
                             }
                         } catch (JSONException e){
                             e.printStackTrace();
@@ -261,11 +316,12 @@ public class DetailActivityFragment extends Fragment {
         mRequestQueue.add(req);
     }
 
-    public View createReviewView(Review review){
+    public View createReviewView(Review review, int i){
         View view;
         view  = View.inflate(getContext(), R.layout.review, null);
         ((TextView) view.findViewById(R.id.reviewAuthor)).setText(review.author);
         ((TextView) view.findViewById(R.id.reviewContent)).setText(review.content);
+        view.setId(2000 + i);
         return view;
     }
 

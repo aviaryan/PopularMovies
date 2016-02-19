@@ -45,7 +45,7 @@ public class TrailerAdapter extends BaseAdapter {
         } else {
             trailerRow = convertView;
         }
-
+        trailerRow.setId(1000 + i);
         ((TextView) trailerRow.findViewById(R.id.trailerLabel)).setText(trailers.get(i).label);
         Picasso.with(mContext).load("http://img.youtube.com/vi/" + trailers.get(i).url + "/default.jpg")
                 .placeholder(R.mipmap.ic_launcher)
