@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,11 +101,6 @@ public class DetailActivityFragment extends Fragment {
         setMenuVisibility(true);
         if (getArguments() != null)
             movie = getArguments().getParcelable("movie");
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     public static DetailActivityFragment newInstance(Movie newMovie) {
