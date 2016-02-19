@@ -102,6 +102,11 @@ public class DetailActivityFragment extends Fragment {
             movie = getArguments().getParcelable("movie");
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     public static DetailActivityFragment newInstance(Movie newMovie) {
         Bundle args = new Bundle();
         DetailActivityFragment fragment = new DetailActivityFragment();
@@ -209,7 +214,6 @@ public class DetailActivityFragment extends Fragment {
                         }
                         // update share intent
                         if (trailerAdapter.trailers.size() > 0) {
-                            Log.v(LOG_TAG, "share " + mShareActionProvider);
                             try {
                                 mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
                                         trailerAdapter.trailers.get(0).url));

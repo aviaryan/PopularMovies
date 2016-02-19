@@ -45,6 +45,7 @@ public class MainActivityFragment extends Fragment {
     // static to preserve sorting over orientation changes (activity restart)
     public static String sortOrder = "popularity.desc", moreParams = "";
     public static boolean setting_cached = false;
+    public static int gridPos = -1;
 
     public MainActivityFragment() {
         instance = this;
@@ -76,6 +77,13 @@ public class MainActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         isDualPane = getPaneLayout();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        gridPos = gridview.getFirstVisiblePosition();
+        //outState.putInt("GRIDVIEW_POSITION", gridPos);
     }
 
     class GridClickListener implements AdapterView.OnItemClickListener {
@@ -135,6 +143,9 @@ public class MainActivityFragment extends Fragment {
                             @Override
                             public void run() {
                                 gridview.setAdapter(imageAdapter);
+                                if (gridPos > -1)
+                                    gridview.setSelection(gridPos);
+                                gridPos = -1;
                             }
                         });
                     }
@@ -154,6 +165,9 @@ public class MainActivityFragment extends Fragment {
             imageAdapter.addItem(movie.poster_url);
         }
         gridview.setAdapter(imageAdapter);
+        if (gridPos > -1)
+            gridview.setSelection(gridPos);
+        gridPos = -1;
     }
 
     public void updateFavoritesGrid(){
