@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -84,6 +85,17 @@ public class MainActivityFragment extends Fragment {
         super.onSaveInstanceState(outState);
         gridPos = gridview.getFirstVisiblePosition();
         //outState.putInt("GRIDVIEW_POSITION", gridPos);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRequestQueue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
+            }
+        });
     }
 
     class GridClickListener implements AdapterView.OnItemClickListener {
