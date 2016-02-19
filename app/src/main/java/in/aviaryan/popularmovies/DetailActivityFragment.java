@@ -77,8 +77,6 @@ public class DetailActivityFragment extends Fragment {
         fab.setOnClickListener(new FabOnClick());
         trailerAdapter = new TrailerAdapter(getActivity());
         mRequestQueue = Volley.newRequestQueue(getActivity());
-        Log.v(LOG_TAG, "curr " + getActivity() + getContext());
-        Log.v(LOG_TAG, "oncreate " + (movie == null));
         Log.v(LOG_TAG, "fragment on activity created finished");
         updateUI();
     }
@@ -170,7 +168,11 @@ public class DetailActivityFragment extends Fragment {
         MenuItem shareItem = menu.findItem(R.id.action_share);
         mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         if (mShareActionProvider != null){
-            mShareActionProvider.setShareIntent(createVideoShareIntent("<No Videos Found>"));
+            if (trailerAdapter.trailers.size() > 0)
+                mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
+                    trailerAdapter.trailers.get(0).url));
+            else
+                mShareActionProvider.setShareIntent(createVideoShareIntent("<No Videos Found>"));
         } else {
             Log.d(LOG_TAG, "Share Action Provider not working");
         }
@@ -208,8 +210,12 @@ public class DetailActivityFragment extends Fragment {
                         // update share intent
                         if (trailerAdapter.trailers.size() > 0) {
                             Log.v(LOG_TAG, "share " + mShareActionProvider);
-                            mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
-                                    trailerAdapter.trailers.get(0).url));
+                            try {
+                                mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
+                                        trailerAdapter.trailers.get(0).url));
+                            } catch (NullPointerException e) { // cached trailers. var not defined yet
+                                Log.v(LOG_TAG, "Share Action Provider not defined");
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {

@@ -28,16 +28,4 @@ public class DetailActivity extends AppCompatActivity {
 
         Log.v(LOG_TAG, "Activity on create finished");
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        Log.v(LOG_TAG, "on create options activity");
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
-    }
 }
