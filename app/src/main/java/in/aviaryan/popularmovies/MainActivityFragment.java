@@ -46,7 +46,7 @@ public class MainActivityFragment extends Fragment {
     // static to preserve sorting over orientation changes (activity restart)
     public static String sortOrder = "popularity.desc", moreParams = "";
     public static boolean setting_cached = false;
-    public static int gridPos = -1;
+    public int gridPos = -1;
 
     public MainActivityFragment() {
         instance = this;
@@ -83,8 +83,14 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        gridPos = gridview.getFirstVisiblePosition();
-        //outState.putInt("GRIDVIEW_POSITION", gridPos);
+        outState.putInt("GRIDVIEW_POSITION", gridview.getFirstVisiblePosition());
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+            gridPos = savedInstanceState.getInt("GRIDVIEW_POSITION");
     }
 
     @Override
