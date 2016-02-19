@@ -1,7 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Share"
-          android:id="@+id/action_share"
-          app:showAsAction="always"
-          app:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="in.aviaryan.popularmovies.DetailActivity">
 </menu>

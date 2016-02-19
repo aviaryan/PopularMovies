@@ -63,7 +63,6 @@ public class DetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         curView = inflater.inflate(R.layout.fragment_detail, container, false);
-        setHasOptionsMenu(true);
         //  get UI components
         trailersList = (LinearLayout) curView.findViewById(R.id.trailersList);
         reviewsList = (LinearLayout) curView.findViewById(R.id.reviewsList);
@@ -99,6 +98,8 @@ public class DetailActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        setMenuVisibility(true);
         if (getArguments() != null)
             movie = getArguments().getParcelable("movie");
     }
@@ -163,17 +164,22 @@ public class DetailActivityFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_detail, menu);
+        Log.v(LOG_TAG, "on create menu details");
+        inflater.inflate(R.menu.menu_share, menu);
 
         MenuItem shareItem = menu.findItem(R.id.action_share);
         mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-
         if (mShareActionProvider != null){
             mShareActionProvider.setShareIntent(createVideoShareIntent("<No Videos Found>"));
         } else {
             Log.d(LOG_TAG, "Share Action Provider not working");
         }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return false;
     }
 
     public void getTrailers(int id){
@@ -201,6 +207,7 @@ public class DetailActivityFragment extends Fragment {
                         }
                         // update share intent
                         if (trailerAdapter.trailers.size() > 0) {
+                            Log.v(LOG_TAG, "share " + mShareActionProvider);
                             mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_URL_BASE +
                                     trailerAdapter.trailers.get(0).url));
                         }

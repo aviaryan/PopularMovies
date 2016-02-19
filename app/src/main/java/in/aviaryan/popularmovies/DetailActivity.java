@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -25,5 +27,17 @@ public class DetailActivity extends AppCompatActivity {
         detailFragment.movie = movie;
 
         Log.v(LOG_TAG, "Activity on create finished");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        Log.v(LOG_TAG, "on create options activity");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return false;
     }
 }
