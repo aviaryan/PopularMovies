@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.text.LoginFilter;
 import android.util.Log;
@@ -112,11 +113,11 @@ public class DetailActivityFragment extends Fragment {
 
     public void updateUI(){
         MoviesDB moviesDB = new MoviesDB();
-        boolean favStatus = moviesDB.isMovieFavorited(getContext().getContentResolver(), movie.id);
+        boolean favStatus = moviesDB.isMovieFavorited(getActivity().getContentResolver(), movie.id);
         if (favStatus)
-            fab.setImageDrawable(getActivity().getDrawable(android.R.drawable.btn_star_big_on));
+            fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.btn_star_big_on));
         else
-            fab.setImageDrawable(getActivity().getDrawable(android.R.drawable.btn_star_big_off));
+            fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.btn_star_big_off));
         // fill fields
         ((TextView) curView.findViewById(R.id.detailTextView)).setText(movie.display_name);
         Picasso.with(getContext()).load(movie.poster_url).into((ImageView) curView.findViewById(R.id.posterImageView));
@@ -149,11 +150,11 @@ public class DetailActivityFragment extends Fragment {
             if (mdb.isMovieFavorited(contentResolver, movie.id)){
                 message = "Removed from Favorites";
                 mdb.removeMovie(contentResolver, movie.id);
-                fab.setImageDrawable(getActivity().getDrawable(android.R.drawable.btn_star_big_off));
+                fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.btn_star_big_off));
             } else {
                 mdb.addMovie(contentResolver, movie);
                 message = "Added to favorites";
-                fab.setImageDrawable(getActivity().getDrawable(android.R.drawable.btn_star_big_on));
+                fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.btn_star_big_on));
             }
             (MainActivityFragment.instance).updateFavoritesGrid(); // till I start using a Loader, this one should suffice
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();

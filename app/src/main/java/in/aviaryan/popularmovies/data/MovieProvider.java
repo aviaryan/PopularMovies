@@ -19,7 +19,7 @@ public class MovieProvider extends ContentProvider {
     static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
         sUriMatcher.addURI(MovieContract.AUTHORITY, "movies", MOVIE_LIST);
-        sUriMatcher.addURI(MovieContract.AUTHORITY, "/#", MOVIE_DETAIL);
+        sUriMatcher.addURI(MovieContract.AUTHORITY, "#", MOVIE_DETAIL);
     }
 
     static String LOG_TAG = "Database";
