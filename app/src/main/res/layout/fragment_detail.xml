@@ -26,8 +26,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginLeft="@dimen/detail_horizontal_margin"
+            android:layout_marginRight="@dimen/detail_horizontal_margin">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                 android:layout_below="@id/overviewTextView"
                 android:id="@+id/trailerHeader"
                 android:layout_marginTop="@dimen/detail_generic_spacing"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="@string/text_videos"/>
 
             <LinearLayout
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="Reviews:"
                 android:layout_below="@+id/trailersList"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/reviewHeader"
                 android:layout_marginTop="20dp"/>
 

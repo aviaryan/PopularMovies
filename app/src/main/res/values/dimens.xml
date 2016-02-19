@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="detail_heading_size">25sp</dimen>
     <dimen name="detail_generic_spacing">20dp</dimen>
+    <dimen name="detail_horizontal_margin">10dp</dimen>
 </resources>
